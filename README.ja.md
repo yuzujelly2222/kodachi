@@ -7,7 +7,6 @@
 [![PyPI](https://img.shields.io/pypi/v/kodachi)](https://pypi.org/project/kodachi/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yuzujelly2222/kodachi/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![tests](https://github.com/yuzujelly2222/kodachi/actions/workflows/tests.yml/badge.svg)](https://github.com/yuzujelly2222/kodachi/actions/workflows/tests.yml)
 
 ## これは何か
 
@@ -152,17 +151,16 @@ kodachi はデータをランダムな超平面で何度も 2 つに分けた木
 
 ## ドキュメント・テスト
 
-API リファレンスは <https://yuzujelly2222.github.io/kodachi/> で公開しています。
-Sphinx のソースが `docs/` にあり、`main` に push するたびに GitHub Actions で GitHub Pages に自動公開されます。
-ローカルでビルドする場合:
+Sphinx で生成した API リファレンスが `docs/` にあり、GitHub Pages として
+<https://yuzujelly2222.github.io/kodachi/> で公開しています
+（`docs_src/` が Sphinx のソース、`docs/` がビルド済みの公開用 HTML です）。ソースから再生成する場合:
 
 ```bash
 pip install -e ".[docs]"
-sphinx-build docs docs/_build/html
+sphinx-build -b html -d docs_src/_build/doctrees docs_src docs
 ```
 
-`tests/` には pytest ベースのテストスイートがあり、GitHub Actions で Windows / macOS / Linux ×
-Python 3.10〜3.13 の組み合わせで実行しています。
+`tests/` には pytest ベースのテストスイートがあります。
 
 ```bash
 pip install -e ".[dev]"

@@ -18,6 +18,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.githubpages",
     "myst_parser",
 ]
 
@@ -42,5 +43,5 @@ html_title = f"kodachi {release}"
 html_theme_options = {
     "source_repository": "https://github.com/yuzujelly2222/kodachi/",
     "source_branch": "main",
-    "source_directory": "docs/",
+    "source_directory": "docs_src/",
 }

@@ -13,8 +13,8 @@ dist/
 venv/
 env/
 
-# Docs
-docs/_build/
+# Sphinx build artifacts (docs/ is the built site published to GitHub Pages)
+docs_src/_build/
 
 # Testing / tooling
 .pytest_cache/

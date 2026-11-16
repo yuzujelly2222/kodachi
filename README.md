@@ -7,7 +7,6 @@ A modern, pure-Python ANN library built on a forest of random projection trees.
 [![PyPI](https://img.shields.io/pypi/v/kodachi)](https://pypi.org/project/kodachi/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yuzujelly2222/kodachi/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![tests](https://github.com/yuzujelly2222/kodachi/actions/workflows/tests.yml/badge.svg)](https://github.com/yuzujelly2222/kodachi/actions/workflows/tests.yml)
 
 > 詳しい日本語の解説は [README.ja.md](https://github.com/yuzujelly2222/kodachi/blob/main/README.ja.md) にあります。
 
@@ -138,17 +137,15 @@ If `k` exceeds the number of points, all points are returned in similarity order
 
 ## Documentation & tests
 
-The API reference is published at <https://yuzujelly2222.github.io/kodachi/>.
-Its Sphinx source lives in `docs/` and is deployed to GitHub Pages on every push to
-`main`. To build it locally:
+A Sphinx-generated API reference lives in `docs/` (source in `docs_src/`), published via
+GitHub Pages at <https://yuzujelly2222.github.io/kodachi/>. To rebuild it locally:
 
 ```bash
 pip install -e ".[docs]"
-sphinx-build docs docs/_build/html
+sphinx-build -b html -d docs_src/_build/doctrees docs_src docs
 ```
 
-A pytest suite lives in `tests/` and runs on GitHub Actions across Windows / macOS /
-Linux and Python 3.10–3.13:
+A pytest suite covering the index lives in `tests/`:
 
 ```bash
 pip install -e ".[dev]"
