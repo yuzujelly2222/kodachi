@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kodachi"
+dynamic = ["version"]
+description = "Approximate nearest neighbor search with random projection trees."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "yuzujelly2222" }]
+keywords = ["ann", "nearest-neighbor", "vector-search", "cosine-similarity", "random-projection"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+dependencies = ["numpy>=1.23"]
+
+[project.urls]
+Homepage = "https://github.com/yuzujelly2222/kodachi"
+Repository = "https://github.com/yuzujelly2222/kodachi"
+Issues = "https://github.com/yuzujelly2222/kodachi/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "build", "twine"]
+docs = ["sphinx>=7", "furo", "myst-parser"]
+
+[tool.hatch.version]
+path = "kodachi/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kodachi"]
+
+[tool.hatch.build.targets.sdist]
+include = ["kodachi", "tests", "README.md", "README.ja.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
