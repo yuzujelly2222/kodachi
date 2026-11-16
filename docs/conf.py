@@ -26,6 +26,7 @@ exclude_patterns = ["_build"]
 
 autodoc_member_order = "bysource"
 autodoc_typehints = "description"
+autodoc_typehints_description_target = "documented"
 autodoc_default_options = {"members": True, "special-members": "__init__"}
 
 napoleon_google_docstring = True

@@ -138,8 +138,9 @@ If `k` exceeds the number of points, all points are returned in similarity order
 
 ## Documentation & tests
 
-The Sphinx source for the API reference lives in `docs/`, with a `.readthedocs.yaml`
-for publishing on Read the Docs. To build it locally:
+The API reference is published at <https://yuzujelly2222.github.io/kodachi/>.
+Its Sphinx source lives in `docs/` and is deployed to GitHub Pages on every push to
+`main`. To build it locally:
 
 ```bash
 pip install -e ".[docs]"

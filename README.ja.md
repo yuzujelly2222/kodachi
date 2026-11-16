@@ -152,8 +152,9 @@ kodachi はデータをランダムな超平面で何度も 2 つに分けた木
 
 ## ドキュメント・テスト
 
-Sphinx で生成する API リファレンスのソースが `docs/` にあり、Read the Docs で公開できる設定
-（`.readthedocs.yaml`）になっています。ローカルでビルドする場合:
+API リファレンスは <https://yuzujelly2222.github.io/kodachi/> で公開しています。
+Sphinx のソースが `docs/` にあり、`main` に push するたびに GitHub Actions で GitHub Pages に自動公開されます。
+ローカルでビルドする場合:
 
 ```bash
 pip install -e ".[docs]"

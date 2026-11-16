@@ -30,6 +30,7 @@ dependencies = ["numpy>=1.23"]
 
 [project.urls]
 Homepage = "https://github.com/yuzujelly2222/kodachi"
+Documentation = "https://yuzujelly2222.github.io/kodachi/"
 Repository = "https://github.com/yuzujelly2222/kodachi"
 Issues = "https://github.com/yuzujelly2222/kodachi/issues"
 
