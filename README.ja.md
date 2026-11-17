@@ -18,7 +18,7 @@ kodachi は速度よりも、C 拡張なしでどこでもすぐ入る手軽さ�
 文章や画像の埋め込みベクトル、特徴量、推薦用のユーザー・アイテムベクトルなど、コサイン類似度で
 「似ているもの」を探したい場面であればそのまま使えます。
 
-本体は `kodachi/main.py` の1ファイル（約300行）にまとまっており、アルゴリズムを読んで学ぶ教材としても使えます。
+本体は `kodachi/_index.py` の1ファイル（docstring 込みで約500行）にまとまっており、アルゴリズムを読んで学ぶ教材としても使えます。
 
 ## インストール
 
@@ -72,6 +72,47 @@ index.search(query, k=10, search_k=5000)   # 候補を増やして精度を上�
 index.search(query, k=10, search_k=len(data))  # データ数以上なら総当たりで正確に計算
 ```
 
+### 類似度も受け取る
+
+`return_scores=True` を付けると、データ番号と一緒にコサイン類似度（-1〜1、高い順）も返します。
+しきい値で足切りしたいときに使えます。
+
+```python
+ids, scores = index.search(query, k=10, return_scores=True)
+ids = ids[scores >= 0.8]   # 類似度 0.8 以上だけ残す
+```
+
+### インデックスの中身を確認する
+
+```python
+len(index)   # 登録されている点の数（build_index 前は 0）
+index        # Index(dim=64, n_trees=20, max_leaf_size=32, n_points=10000)
+```
+
+### 保存と読み込み
+
+作ったインデックスは `.kodachi` ファイルに保存して、あとで木を作り直さずに読み込めます。
+読み込んだインデックスは、保存前とまったく同じ検索結果を返します。
+
+```python
+index.save("index.kodachi")
+
+from kodachi import Index
+index = Index.load("index.kodachi")
+neighbors = index.search(query, k=10)
+```
+
+`.kodachi` ファイルの中身は無圧縮の zip で、次のファイルが入っています。
+
+| ファイル | 内容 |
+|---|---|
+| `settings.json` | 保存形式のバージョン（`format_version`）、`dim`、`n_trees`、`max_leaf_size` |
+| `data.npy` | 正規化済みのデータ（`float32`） |
+| `tree_<t>/*.npy` | `t` 本目の木をノード番号順の配列にしたもの（法線、オフセット、子ノード番号、葉の点の番号） |
+
+中身は zip と `.npy` だけなので、kodachi がなくても `zipfile` と `numpy.load` で読めます。
+読み込みは `allow_pickle=False` で行うため、ファイルから任意のコードが実行されることはありません。
+
 ## アルゴリズム解説
 
 kodachi はデータをランダムな超平面で何度も 2 つに分けた木を複数本作り、検索時は
@@ -86,7 +127,7 @@ kodachi はデータをランダムな超平面で何度も 2 つに分けた木
 3. **再帰** — 点の数が `max_leaf_size`（既定 32）以下になるまで、左右それぞれで 2 を繰り返す。
 4. これを `n_trees` 回行い、少しずつ違う分け方をした木の森を作る。
 
-### 検索する（`search` → `_collect_candidates` → `down_node`）
+### 検索する（`search` → `_collect_candidates` → `_down_node`）
 
 1. **第1段階** — 各木でクエリがある側にまっすぐ降りて、葉を 1 枚ずつ集める。
    通らなかった側の枝は優先度付きキューに後回しとして入れておく。
@@ -129,23 +170,36 @@ kodachi はデータをランダムな超平面で何度も 2 つに分けた木
 
 ### `Index`
 
-外部から使うのは以下の公開メンバのみです。`_Node`（木のノード）、`_Helper`（幾何計算）、
-`_make_tree`、`_collect_candidates` は内部実装用のため `_` を付けて非公開にしています。
+公開 API は `kodachi` パッケージから import できる `Index` と `FORMAT_VERSION` だけです。
+実装の入った `kodachi._index` モジュールや、`_Node`（木のノード）、`_Helper`（幾何計算）、
+`_make_tree`、`_collect_candidates`、`_down_node` は内部実装用のため `_` を付けて非公開にしています。
+1.0.0 以降、公開 API は互換性を壊さないように保ちます（セマンティック バージョニング）。
 
 | メンバ | 説明 |
 |---|---|
 | `Index(dim, n_trees=10, max_leaf_size=32, seed=None)` | 空のインデックスを作る。`seed` を固定すると毎回同じ木ができる |
 | `build_index(data)` | `(点の数, dim)` の配列から木を作る。もう一度呼ぶと前の木は捨てて作り直す |
-| `search(query, k=10, search_k=None)` | `(dim,)` のクエリに対し、コサイン類似度の高い順に最大 `k` 個のデータ番号を返す |
-| `down_node(heap, counter, node, query, space)` | 1 本の枝を葉まで降りる低レベル関数（通常は直接使わない） |
+| `search(query, k=10, search_k=None, return_scores=False)` | `(dim,)` のクエリに対し、コサイン類似度の高い順に最大 `k` 個のデータ番号（`int64`）を返す。`return_scores=True` なら `(番号, 類似度)` のタプルを返す |
+| `save(path)` | インデックスを `.kodachi` ファイル（無圧縮の zip）に保存する。同名のファイルは上書きする |
+| `Index.load(path, seed=None)` | `save` で保存したファイルからインデックスを復元するクラスメソッド |
+| `len(index)` | 登録されている点の数（`build_index` 前は 0） |
+| `repr(index)` | `Index(dim=..., n_trees=..., max_leaf_size=..., n_points=...)` 形式の要約 |
+
+### その他
+
+- `FORMAT_VERSION` — `save` が書き出す `.kodachi` ファイルの保存形式のバージョン（現在は `1`）
 
 ### バリデーション
 
 不正な入力は次の例外で弾きます。
 
-- `build_index` に 2 次元でない配列、または列数が `dim` と違う配列を渡した → `ValueError`
-- `search` に形が `(dim,)` でないクエリを渡した → `ValueError`
-- `build_index` を呼ぶ前に `search` を呼んだ → `RuntimeError`
+- `dim`、`n_trees`、`max_leaf_size`、`k`、`search_k` が整数でない → `TypeError`（`np.int64` などの NumPy の整数は受け付ける。`True` / `False` は不可）
+- 上記の値が 1 未満 → `ValueError`
+- `build_index` に 2 次元でない配列、列数が `dim` と違う配列、空の配列、NaN や無限大を含む配列を渡した → `ValueError`
+- `search` に形が `(dim,)` でないクエリ、または NaN や無限大を含むクエリを渡した → `ValueError`
+- `build_index` を呼ぶ前に `search` または `save` を呼んだ → `RuntimeError`
+- `load` に存在しないパスを渡した → `FileNotFoundError`
+- `load` に kodachi のインデックスでないファイル、または対応していない保存形式のバージョンのファイルを渡した → `ValueError`
 
 `k` がデータ数より大きい場合はエラーにせず、全データを類似度順に返します。
 

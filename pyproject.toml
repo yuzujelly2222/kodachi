@@ -13,7 +13,7 @@ license-files = ["LICENSE"]
 authors = [{ name = "yuzujelly2222" }]
 keywords = ["ann", "nearest-neighbor", "vector-search", "cosine-similarity", "random-projection"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",

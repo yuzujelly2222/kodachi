@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="User guide" href="guide.html">
 
     <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>API reference - kodachi 0.1.0</title>
+        <title>API reference - kodachi 1.0.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">kodachi 0.1.0</div></a>
+      <a href="index.html"><div class="brand">kodachi 1.0.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">kodachi 0.1.0</span>
+  <span class="sidebar-brand-text">kodachi 1.0.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -236,14 +236,15 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-kodachi.main">
-<span id="api-reference"></span><h1>API reference<a class="headerlink" href="#module-kodachi.main" title="Link to this heading">¶</a></h1>
+          <section id="module-kodachi">
+<span id="api-reference"></span><h1>API reference<a class="headerlink" href="#module-kodachi" title="Link to this heading">¶</a></h1>
 <p>Approximate nearest neighbor search with random projection trees.</p>
-<p>This module provides an Annoy-style index that builds a forest of random
+<p>kodachi provides an Annoy-style index that builds a forest of random
 hyperplane trees and searches it for the vectors with the highest cosine
 similarity to a query.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">kodachi</span> <span class="kn">import</span> <span class="n">Index</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">index</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">index</span><span class="o">.</span><span class="n">build_index</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -255,7 +256,7 @@ similarity to a query.</p>
 <h2>Index<a class="headerlink" href="#index" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="kodachi.Index">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">kodachi.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/main.html#Index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">kodachi.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index" title="Link to this definition">¶</a></dt>
 <dd><p>Approximate nearest neighbor index based on cosine similarity.</p>
 <p>The index builds <code class="docutils literal notranslate"><span class="pre">n_trees</span></code> random projection trees over L2-normalized
 data. Searching descends every tree toward the query and then explores
@@ -283,7 +284,7 @@ collected, finally ranking the candidates by exact cosine similarity.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="kodachi.Index.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/main.html#Index.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Initializes an empty index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -296,12 +297,34 @@ the cost of memory and build time.</p></li>
 for reproducible trees.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.15)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">dim</span></code>, <code class="docutils literal notranslate"><span class="pre">n_trees</span></code> or <code class="docutils literal notranslate"><span class="pre">max_leaf_size</span></code> is not an int.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">dim</span></code>, <code class="docutils literal notranslate"><span class="pre">n_trees</span></code> or <code class="docutils literal notranslate"><span class="pre">max_leaf_size</span></code> is less than 1.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kodachi.Index.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of indexed points, or 0 if the index is not built.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kodachi.Index.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.__repr__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a summary such as <code class="docutils literal notranslate"><span class="pre">Index(dim=64,</span> <span class="pre">n_trees=20,</span> <span class="pre">max_leaf_size=32,</span> <span class="pre">n_points=10000)</span></code>.</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="kodachi.Index.build_index">
-<span class="sig-name descname"><span class="pre">build_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/main.html#Index.build_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.build_index" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">build_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.build_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.build_index" title="Link to this definition">¶</a></dt>
 <dd><p>Builds the forest from the given data.</p>
 <p>Any previously built trees are discarded. The data is copied, cast to
 <code class="docutils literal notranslate"><span class="pre">float32</span></code> and L2-normalized before indexing.</p>
@@ -310,15 +333,17 @@ for reproducible trees.</p></li>
 <dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Array-like of shape <code class="docutils literal notranslate"><span class="pre">(n_points,</span> <span class="pre">dim)</span></code>.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">data</span></code> is not 2-D or its second dimension does
-    not equal <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">data</span></code> is not 2-D, its second dimension does not
+    equal <code class="docutils literal notranslate"><span class="pre">dim</span></code>, it has no rows, or it contains NaN or infinity.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="kodachi.Index.search">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/main.html#Index.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.search" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="_modules/kodachi/_index.html#Index.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.search" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Finds the approximate <code class="docutils literal notranslate"><span class="pre">k</span></code> nearest neighbors of a query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -330,51 +355,88 @@ Larger values improve recall at the cost of speed. Defaults
 to <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">*</span> <span class="pre">n_trees</span> <span class="pre">*</span> <span class="pre">10</span></code>. If it is at least the number of
 indexed points, an exact brute-force search is performed
 instead of traversing the trees.</p></li>
+<li><p><strong>return_scores</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, also return the cosine similarity of
+each neighbor.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Array of up to <code class="docutils literal notranslate"><span class="pre">k</span></code> data indices, sorted by descending cosine
-similarity to <code class="docutils literal notranslate"><span class="pre">query</span></code>.</p>
+<dd class="field-even"><p>Array of up to <code class="docutils literal notranslate"><span class="pre">k</span></code> data indices (<code class="docutils literal notranslate"><span class="pre">int64</span></code>), sorted by
+descending cosine similarity to <code class="docutils literal notranslate"><span class="pre">query</span></code>. If <code class="docutils literal notranslate"><span class="pre">return_scores</span></code>
+is <code class="docutils literal notranslate"><span class="pre">True</span></code>, a tuple <code class="docutils literal notranslate"><span class="pre">(indices,</span> <span class="pre">scores)</span></code> where <code class="docutils literal notranslate"><span class="pre">scores</span></code> holds
+the matching cosine similarities (<code class="docutils literal notranslate"><span class="pre">float32</span></code>, from -1 to 1).</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><strong>RuntimeError</strong></a> – If <a class="reference internal" href="#kodachi.Index.build_index" title="kodachi.Index.build_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_index()</span></code></a> has not been called.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">query</span></code> does not have shape <code class="docutils literal notranslate"><span class="pre">(dim,)</span></code>.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.15)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">k</span></code> or <code class="docutils literal notranslate"><span class="pre">search_k</span></code> is not an int.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">query</span></code> does not have shape <code class="docutils literal notranslate"><span class="pre">(dim,)</span></code> or contains
+    NaN or infinity, or if <code class="docutils literal notranslate"><span class="pre">k</span></code> or <code class="docutils literal notranslate"><span class="pre">search_k</span></code> is less than 1.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="kodachi.Index.down_node">
-<span class="sig-name descname"><span class="pre">down_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/main.html#Index.down_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.down_node" title="Link to this definition">¶</a></dt>
-<dd><p>Descends from a node to a leaf, deferring the other branches.</p>
-<p>At each internal node the query follows the side of the hyperplane it
-lies on, and the opposite branch is pushed onto <code class="docutils literal notranslate"><span class="pre">heap</span></code> with a
-priority based on the query’s margin to the hyperplane.</p>
+<dt class="sig sig-object py" id="kodachi.Index.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.save" title="Link to this definition">¶</a></dt>
+<dd><p>Saves the index to a file.</p>
+<p>The file is an uncompressed zip archive containing <code class="docutils literal notranslate"><span class="pre">settings.json</span></code>,
+the normalized data as <code class="docutils literal notranslate"><span class="pre">data.npy</span></code> and each tree flattened into
+<code class="docutils literal notranslate"><span class="pre">.npy</span></code> arrays under <code class="docutils literal notranslate"><span class="pre">tree_&lt;t&gt;/</span></code>. The conventional extension is
+<code class="docutils literal notranslate"><span class="pre">.kodachi</span></code>. An existing file at <code class="docutils literal notranslate"><span class="pre">path</span></code> is overwritten.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>heap</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>_Node</em><em>]</em><em>]</em>) – Priority queue of deferred branches, stored as
-<code class="docutils literal notranslate"><span class="pre">(negated_priority,</span> <span class="pre">tie_breaker,</span> <span class="pre">node)</span></code> tuples. Modified in place.</p></li>
-<li><p><strong>counter</strong> (<em>count</em>) – Monotonic counter used as a tie-breaker in <code class="docutils literal notranslate"><span class="pre">heap</span></code>.</p></li>
-<li><p><strong>node</strong> (<em>_Node</em>) – Node to start descending from.</p></li>
-<li><p><strong>query</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Normalized query vector of shape <code class="docutils literal notranslate"><span class="pre">(dim,)</span></code>.</p></li>
-<li><p><strong>space</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Smallest margin accumulated along the path to <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Destination file path, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;index.kodachi&quot;</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The leaf node reached by the descent.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>_Node</em></p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><strong>RuntimeError</strong></a> – If <a class="reference internal" href="#kodachi.Index.build_index" title="kodachi.Index.build_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_index()</span></code></a> has not been called.</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="kodachi.Index.load">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kodachi/_index.html#Index.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kodachi.Index.load" title="Link to this definition">¶</a></dt>
+<dd><p>Loads an index saved with <a class="reference internal" href="#kodachi.Index.save" title="kodachi.Index.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a>.</p>
+<p>The loaded index returns the same search results as the saved one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Path of a file written by <a class="reference internal" href="#kodachi.Index.save" title="kodachi.Index.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a>.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>) – Seed for the random number generator, used only if
+<a class="reference internal" href="#kodachi.Index.build_index" title="kodachi.Index.build_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_index()</span></code></a> is called again on the loaded index.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restored index, ready for <a class="reference internal" href="#kodachi.Index.search" title="kodachi.Index.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">search()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.15)"><strong>FileNotFoundError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">path</span></code> does not exist.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If the file is not a valid kodachi index or was
+    written in an unsupported format version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#kodachi.Index" title="kodachi._index.Index"><em>Index</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="kodachi.kodachi.FORMAT_VERSION">
+<span class="sig-prename descclassname"><span class="pre">kodachi.</span></span><span class="sig-name descname"><span class="pre">FORMAT_VERSION</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#kodachi.kodachi.FORMAT_VERSION" title="Link to this definition">¶</a></dt>
+<dd><p>Version of the <code class="docutils literal notranslate"><span class="pre">.kodachi</span></code> file format written by <a class="reference internal" href="#kodachi.Index.save" title="kodachi.Index.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Index.save()</span></code></a>.
+<a class="reference internal" href="#kodachi.Index.load" title="kodachi.Index.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Index.load()</span></code></a> raises <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a> for files written in any
+other version.</p>
 </dd></dl>
 
 </section>
@@ -434,11 +496,18 @@ priority based on the query’s margin to the hyperplane.</p>
 <li><a class="reference internal" href="#kodachi.Index.n_trees"><code class="docutils literal notranslate"><span class="pre">Index.n_trees</span></code></a></li>
 <li><a class="reference internal" href="#kodachi.Index.max_leaf_size"><code class="docutils literal notranslate"><span class="pre">Index.max_leaf_size</span></code></a></li>
 <li><a class="reference internal" href="#kodachi.Index.__init__"><code class="docutils literal notranslate"><span class="pre">Index.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#kodachi.Index.__len__"><code class="docutils literal notranslate"><span class="pre">Index.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#kodachi.Index.__repr__"><code class="docutils literal notranslate"><span class="pre">Index.__repr__()</span></code></a></li>
 <li><a class="reference internal" href="#kodachi.Index.build_index"><code class="docutils literal notranslate"><span class="pre">Index.build_index()</span></code></a></li>
 <li><a class="reference internal" href="#kodachi.Index.search"><code class="docutils literal notranslate"><span class="pre">Index.search()</span></code></a></li>
-<li><a class="reference internal" href="#kodachi.Index.down_node"><code class="docutils literal notranslate"><span class="pre">Index.down_node()</span></code></a></li>
+<li><a class="reference internal" href="#kodachi.Index.save"><code class="docutils literal notranslate"><span class="pre">Index.save()</span></code></a></li>
+<li><a class="reference internal" href="#kodachi.Index.load"><code class="docutils literal notranslate"><span class="pre">Index.load()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#constants">Constants</a><ul>
+<li><a class="reference internal" href="#kodachi.kodachi.FORMAT_VERSION"><code class="docutils literal notranslate"><span class="pre">kodachi.FORMAT_VERSION</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -452,7 +521,7 @@ priority based on the query’s margin to the hyperplane.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

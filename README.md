@@ -24,7 +24,7 @@ Input is a plain numeric array of shape `(n_points, dim)`, so the vectors can co
 anywhere: text or image embeddings, feature vectors, user/item vectors for
 recommendation — anything you want to search by cosine similarity.
 
-The whole implementation fits in a single file, `kodachi/main.py` (about 300 lines),
+The whole implementation fits in a single file, `kodachi/_index.py` (about 500 lines including docstrings),
 so it also works as a readable reference for the algorithm.
 
 ## Install
@@ -77,6 +77,48 @@ index.search(query, k=10, search_k=5000)       # more candidates, higher recall
 index.search(query, k=10, search_k=len(data))  # >= n_points: exact brute-force search
 ```
 
+### Getting similarity scores
+
+Pass `return_scores=True` to also get the cosine similarity of each neighbor (from -1
+to 1, in descending order), e.g. to drop results below a threshold:
+
+```python
+ids, scores = index.search(query, k=10, return_scores=True)
+ids = ids[scores >= 0.8]   # keep only neighbors with similarity >= 0.8
+```
+
+### Inspecting an index
+
+```python
+len(index)   # number of indexed points (0 before build_index)
+index        # Index(dim=64, n_trees=20, max_leaf_size=32, n_points=10000)
+```
+
+### Saving and loading
+
+Save a built index to a `.kodachi` file and load it later without rebuilding the trees.
+A loaded index returns exactly the same results as the saved one.
+
+```python
+index.save("index.kodachi")
+
+from kodachi import Index
+index = Index.load("index.kodachi")
+neighbors = index.search(query, k=10)
+```
+
+A `.kodachi` file is an uncompressed zip archive containing:
+
+| File | Contents |
+|---|---|
+| `settings.json` | Format version (`format_version`), `dim`, `n_trees`, `max_leaf_size` |
+| `data.npy` | Normalized data (`float32`) |
+| `tree_<t>/*.npy` | Tree `t` flattened into per-node arrays (normals, offsets, child ids, leaf indices) |
+
+Since it is just zip and `.npy`, it can be read with `zipfile` and `numpy.load` even
+without kodachi. Arrays are loaded with `allow_pickle=False`, so loading a file never
+executes arbitrary code.
+
 ## How it works
 
 **Building** (`build_index` -> `_make_tree`)
@@ -88,7 +130,7 @@ index.search(query, k=10, search_k=len(data))  # >= n_points: exact brute-force 
 3. **Recurse** on each side until it holds at most `max_leaf_size` (default 32) points.
 4. Repeat `n_trees` times to get a forest of trees that each split the space differently.
 
-**Searching** (`search` -> `_collect_candidates` -> `down_node`)
+**Searching** (`search` -> `_collect_candidates` -> `_down_node`)
 
 1. In each tree, descend straight to the leaf on the query's side. Branches not taken
    are pushed onto a priority queue.
@@ -117,21 +159,33 @@ full benchmark table.
 
 ## API
 
-Only the members below are part of the public API; `_Node`, `_Helper`, `_make_tree`,
-and `_collect_candidates` are internal.
+The public API is `Index` and `FORMAT_VERSION`, imported from the `kodachi` package.
+The `kodachi._index` module and everything prefixed with `_` (`_Node`, `_Helper`,
+`_make_tree`, `_collect_candidates`, `_down_node`) are internal. From 1.0.0 on, the
+public API follows semantic versioning.
 
 | Member | Description |
 |---|---|
 | `Index(dim, n_trees=10, max_leaf_size=32, seed=None)` | Create an empty index. Fix `seed` for reproducible trees |
 | `build_index(data)` | Build the forest from an array of shape `(n_points, dim)`. Calling it again rebuilds from scratch |
-| `search(query, k=10, search_k=None)` | Return up to `k` data indices for a `(dim,)` query, sorted by descending cosine similarity |
-| `down_node(heap, counter, node, query, space)` | Low-level helper that descends one branch to a leaf (rarely needed directly) |
+| `search(query, k=10, search_k=None, return_scores=False)` | Return up to `k` data indices (`int64`) for a `(dim,)` query, sorted by descending cosine similarity. With `return_scores=True`, return `(indices, scores)` |
+| `save(path)` | Save the index to a `.kodachi` file (uncompressed zip), overwriting any existing file |
+| `Index.load(path, seed=None)` | Class method that restores an index saved with `save` |
+| `len(index)` | Number of indexed points (0 before `build_index`) |
+| `repr(index)` | Summary like `Index(dim=..., n_trees=..., max_leaf_size=..., n_points=...)` |
+| `FORMAT_VERSION` | Version of the `.kodachi` file format written by `save` (currently `1`) |
 
 Invalid input raises:
 
-- `ValueError` if `build_index` gets an array that is not 2-D or whose width is not `dim`
-- `ValueError` if `search` gets a query whose shape is not `(dim,)`
-- `RuntimeError` if `search` is called before `build_index`
+- `TypeError` if `dim`, `n_trees`, `max_leaf_size`, `k` or `search_k` is not an int
+  (NumPy integers are accepted; `bool` is not)
+- `ValueError` if any of them is less than 1
+- `ValueError` if `build_index` gets an array that is not 2-D, whose width is not `dim`,
+  that is empty, or that contains NaN or infinity
+- `ValueError` if `search` gets a query whose shape is not `(dim,)` or that contains NaN or infinity
+- `RuntimeError` if `search` or `save` is called before `build_index`
+- `FileNotFoundError` if `load` gets a path that does not exist
+- `ValueError` if `load` gets a file that is not a kodachi index or uses an unsupported format version
 
 If `k` exceeds the number of points, all points are returned in similarity order.
 

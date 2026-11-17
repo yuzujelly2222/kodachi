@@ -27,6 +27,9 @@ index = Index(dim=64, n_trees=20, seed=42)
 index.build_index(data)
 
 neighbors = index.search(data[0], k=10)  # data indices sorted by cosine similarity
+
+index.save("index.kodachi")              # save without rebuilding later
+index = Index.load("index.kodachi")
 ```
 
 ```{toctree}
